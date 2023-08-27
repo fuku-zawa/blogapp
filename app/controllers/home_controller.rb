@@ -1,10 +1,8 @@
 class HomeController < ApplicationController
     def index
-        @title = "デイトラ"
-        # home/index.html.erbを表示する
-        render 'home/index'
+        @article = Article.first 
     end
     def about
-        render "home/about"
+        
     end
 end
