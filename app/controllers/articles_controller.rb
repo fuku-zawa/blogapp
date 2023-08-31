@@ -1,4 +1,7 @@
 class ArticlesController < ApplicationController
+    
+    before_action :set_article, only:[:show, :edit, :update]
+    
     def index
         @articles = Article.all
     end
@@ -6,7 +9,7 @@ class ArticlesController < ApplicationController
     # 特定の記事のURLは「/articles/123」みたいなやつ
     # そのGETリクエストを受け取ると、paramsが生成され、そのidを↓で取得したいからparam[:id]
     def show
-        @article = Article.find(params[:id])
+        # set_article
     end
 
     def new
@@ -27,11 +30,11 @@ class ArticlesController < ApplicationController
     end
 
     def edit
-        @article = Article.find(params[:id])
+        # set_article
     end
 
     def update
-        @article = Article.find(params[:id])
+        # set_article
         if @article.update(article_params)
             redirect_to article_path(@article), notice: "更新できました"
         else
@@ -52,4 +55,9 @@ class ArticlesController < ApplicationController
         # strong parameter   paramsが、articleキーを持っていて、tilteとcontentだけを保存の対象とする
         params.require(:article).permit(:title, :content)
     end
+
+    def set_article
+        @article = Article.find(params[:id])
+    end
+
 end
