@@ -26,6 +26,10 @@ class ArticlesController < ApplicationController
         end
     end
 
+    def edit
+        @article = Article.find(params[:id])
+    end
+
     private
     # 投稿した内容からtitleとcontentを抜き出してくれる
     def article_params
