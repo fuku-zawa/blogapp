@@ -7,6 +7,6 @@ Rails.application.routes.draw do
   # get '/' => 'home#index'
   
   # ルーティング表にいろんなpathが作成される
-  resources :articles, only: [:show, :new, :create, :edit]
+  resources :articles, only: [:show, :new, :create, :edit, :update]
   
 end
