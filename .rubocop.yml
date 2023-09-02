@@ -1,0 +1,33 @@
+AllCops:
+  # rubyのバージョン指定
+  TargetRubyVersion: 2.6
+  DisabledByDefault: true
+  # rubocopの除外ファイルを指定
+  Exclude:
+    - db/schema.rb
+    - vendor/bundle/**/*
+    - node_modules/**/*
+
+# gemをabc順に並び変える
+Bundler/OrderedGems:
+  Enabled: true
+
+# 最後の行に空白行を1行入れる
+Layout/EmptyLines:
+  Enabled: true
+
+# 無駄な空白行を消す
+Layout/TrailingEmptyLines:
+  Enabled: true
+
+Layout/TrailingWhitespace:
+  Enabled: true
+
+Style/MethodDefParentheses:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: single_quotes
