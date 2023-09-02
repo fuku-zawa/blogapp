@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # to:は省略可　rootはルートドメインにアクセスしたときに表示するページの指定
   # getは後ろにパス指定できるが、ルートできない
