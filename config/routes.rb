@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   # get '/' => 'home#index'
 
   # ルーティング表にいろんなpathが作成される
-  resources :articles
+  resources :articles do
+    resources :comments, only: [:new, :create]
+  end
 
 end
