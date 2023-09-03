@@ -11,6 +11,7 @@ class ArticlesController < ApplicationController
     # そのGETリクエストを受け取ると、paramsが生成され、そのidを↓で取得したいからparam[:id]
     def show
         # set_article
+        @comments = @article.comments
     end
 
     def new
