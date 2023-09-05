@@ -21,5 +21,7 @@ module BlogApp
 
     # デフォルトを日本語に
     config.i18n.default_locale = :ja
+
+    Aws.use_bundled_cert!
   end
 end
