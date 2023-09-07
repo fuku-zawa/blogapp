@@ -55,7 +55,7 @@ class ArticlesController < ApplicationController
     # 投稿した内容からtitleとcontentを抜き出してくれる
     def article_params
         # strong parameter   paramsが、articleキーを持っていて、tilteとcontentだけを保存の対象とする
-        params.require(:article).permit(:title, :content)
+        params.require(:article).permit(:title, :content, :eyecatch)
     end
 
     def set_article
