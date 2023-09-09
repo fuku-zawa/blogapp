@@ -3,7 +3,7 @@ default: &default
   encoding: unicode
   pool: 5
   timeout: 5000
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS"){ 5 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
@@ -11,7 +11,7 @@ development:
 
 test:
   <<: *default
-  database: blogapp-test
+  database: blogapp_test
 
 production:
   <<: *default
