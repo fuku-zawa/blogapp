@@ -65,7 +65,16 @@ class User < ApplicationRecord
   # followしている人を取得する
   # following_idは引数userを渡す
   def follow!(user)
-    following_relationships.create!(following_id: user.id)
+    # userがUserクラスのインスタンスかどうか
+    if user.is_a?(User)
+      # そうならuser_idにはidを渡す
+      user_id = user.id
+    else
+      # そうでなければ引数のuserをそのままuser_id渡す
+      user_id = user
+    end
+
+    following_relationships.create!(following_id: user_id)
   end
 
   # followを外す機能
@@ -73,6 +82,12 @@ class User < ApplicationRecord
     # followingの相手は必ず見つからないといけないのでfind_byに!をつける
     relation = following_relationships.find_by!(following_id: user.id)
     relation.destroy!
+  end
+
+  # followしているかしていないかを判定する
+  # followしている人の中（following_relationships）にuser.idの人がいるか
+  def has_followed?(user)
+    following_relationships.exists?(following_id: user.id)
   end
 
   def prepare_profile
