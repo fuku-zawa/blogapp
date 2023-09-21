@@ -25,6 +25,19 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :favorite_articles, through: :likes, source: :article
+  
+  # 自分がfollowしている人を取得するための関係
+  # userモデルはhas_many　following_relationships（フォローしているときのデータを持ってくるのでfollowing_relationshipという名前にした　こんなモデルはない）だよ。
+  # Relationshipモデルのことで外部キーはfollower_idだよと指定してあげる
+  has_many :following_relationships, foreign_key: 'follower_id', class_name: 'Relationship', dependent: :destroy
+  # フォローしている人を取得するにはrelationshipsテーブルを経由して取得してくる→through
+  # フォローしている人followingsをfollowing_relationshipsからとってくる。followingsモデルはないのでsource
+  has_many :followings, through: :following_relationships, source: :following
+  
+  # 自分のfollowerを取得するための関係（↑の逆をする）
+  has_many :follower_relationships, foreign_key: 'following_id', class_name: 'Relationship', dependent: :destroy
+  has_many :followers, through: :follower_relationships, source: :follower
+
   has_one :profile, dependent: :destroy
 
   delegate :birthday, :age, :gender, to: :profile, allow_nil: true
@@ -49,13 +62,18 @@ class User < ApplicationRecord
     profile&.nickname || self.email.split('@')[0]
   end
 
-  # def birthday
-  #   profile&.birthday
-  # end
+  # followしている人を取得する
+  # following_idは引数userを渡す
+  def follow!(user)
+    following_relationships.create!(following_id: user.id)
+  end
 
-  # def gender
-  #   profile&.gender
-  # end
+  # followを外す機能
+  def unfollow!(user)
+    # followingの相手は必ず見つからないといけないのでfind_byに!をつける
+    relation = following_relationships.find_by!(following_id: user.id)
+    relation.destroy!
+  end
 
   def prepare_profile
     profile || build_profile
