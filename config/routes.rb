@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   # /が来たら、homeのindex（= HomeControllerのindexメソッド）を実行する
   # get '/' => 'home#index'
 
+  resource :timeline, only: [:show]
+
   # ルーティング表にいろんなpathが作成される
   resources :articles do
     resources :comments, only: [:new, :create]
