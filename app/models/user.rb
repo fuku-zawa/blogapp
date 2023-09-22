@@ -51,16 +51,6 @@ class User < ApplicationRecord
     likes.exists?(article_id: article.id)
   end
 
-  def display_name
-    # if profile && profile.nickname
-    #   profile.nickname
-    # else
-    #   self.email.split('@')[0]
-    # end
-
-    # ぼっち演算子
-    profile&.nickname || self.email.split('@')[0]
-  end
 
   # followしている人を取得する
   # following_idは引数userを渡す
@@ -88,13 +78,7 @@ class User < ApplicationRecord
     profile || build_profile
   end
 
-  def avatar_image
-    if profile&.avatar&.attached?
-      profile.avatar
-    else
-      'default-avatar.png'
-    end
-  end
+
 
   private
   # followとunfollowメソッドでしか使わないからprivate
