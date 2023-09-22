@@ -65,22 +65,16 @@ class User < ApplicationRecord
   # followしている人を取得する
   # following_idは引数userを渡す
   def follow!(user)
-    # userがUserクラスのインスタンスかどうか
-    if user.is_a?(User)
-      # そうならuser_idにはidを渡す
-      user_id = user.id
-    else
-      # そうでなければ引数のuserをそのままuser_id渡す
-      user_id = user
-    end
+    user_id = get_user_id(user)
 
     following_relationships.create!(following_id: user_id)
   end
 
   # followを外す機能
   def unfollow!(user)
+    user_id = get_user_id(user)
     # followingの相手は必ず見つからないといけないのでfind_byに!をつける
-    relation = following_relationships.find_by!(following_id: user.id)
+    relation = following_relationships.find_by!(following_id: user_id)
     relation.destroy!
   end
 
@@ -100,6 +94,20 @@ class User < ApplicationRecord
     else
       'default-avatar.png'
     end
+  end
+
+  private
+  # followとunfollowメソッドでしか使わないからprivate
+  def get_user_id(user)
+    # userがUserクラスのインスタンスかどうか
+    if user.is_a?(User)
+      # そうならuser_idにはidを渡す
+      user.id
+    else
+      # そうでなければ引数のuserをそのままuser_id渡す
+      user
+    end
+
   end
 
 end
