@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # ルーティング表にいろんなpathが作成される
   resources :articles do
     resources :comments, only: [:new, :create]
-    resource :like, only: [:create, :destroy]
+    resource :like, only: [:show, :create, :destroy]
   end
 
   # accounts/:id/followsというURLができる
