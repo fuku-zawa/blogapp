@@ -16,7 +16,7 @@ const handleHeartDisplay = (hasLiked) => {
 const handleCommentForm = () => {
   $('.show-comment-form').on('click', () => {
     $('.show-comment-form').addClass('hidden')
-    $('.comment-textarea').removeClass('hidden')
+    $('.comment-text-area').removeClass('hidden')
   })
 }
 
@@ -26,15 +26,17 @@ const appendNewComment = (comment) => {
   )
 }
 
-document.addEventListener('turbolinks:load', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const dataset = $('#article-show').data()
   const articleId = dataset.articleId
 
   axios.get(`/articles/${articleId}/comments`)
     .then((response) => {
       const comments = response.data
+      comments.forEach((comment) => {
         appendNewComment(comment)
       })
+    })
   
   handleCommentForm()
 
