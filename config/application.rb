@@ -23,6 +23,7 @@ module BlogApp
 
     # デフォルトを日本語に
     config.i18n.default_locale = :ja
+    config.active_job.queue_adapter = :sidekiq
 
     Aws.use_bundled_cert!
   end
