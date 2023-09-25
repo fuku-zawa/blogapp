@@ -10,11 +10,13 @@ class ArticlesController < ApplicationController
     # 特定の記事のURLは「/articles/123」みたいなやつ
     # そのGETリクエストを受け取ると、paramsが生成され、そのidを↓で取得したいからparam[:id]
     def show
-
     end
 
     def new
         @article = current_user.articles.build
+    end
+
+    def like
     end
 
     def create

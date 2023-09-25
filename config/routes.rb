@@ -12,13 +12,10 @@ Rails.application.routes.draw do
   # /が来たら、homeのindex（= HomeControllerのindexメソッド）を実行する
   # get '/' => 'home#index'
 
-  resource :timeline, only: [:show]
+
 
   # ルーティング表にいろんなpathが作成される
-  resources :articles do
-    resources :comments, only: [:index, :new, :create]
-    resource :like, only: [:show, :create, :destroy]
-  end
+  resources :articles
 
   # accounts/:id/followsというURLができる
   resources :accounts, only: [:show] do
@@ -26,6 +23,19 @@ Rails.application.routes.draw do
     resources :unfollows, only: [:create]
   end
 
-  resource :profile, only:[:show, :edit, :update]
-  resources :favorites, only:[:index]
+  
+  scope module: :apps do
+    resources :favorites, only:[:index]
+    resource :profile, only:[:show, :edit, :update]
+    resource :timeline, only: [:show]
+  end
+    
+  # namespaceでURLとコントローラを変えたけどURLだけにidをつけたい
+  namespace :api, defaults: {format: :json} do
+    scope '/articles/:article_id' do
+      resources :comments, only: [:index, :create]
+      resource :like, only: [:show, :create, :destroy]
+    end
+  end
+
 end
