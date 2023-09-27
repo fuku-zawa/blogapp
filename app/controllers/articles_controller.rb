@@ -16,9 +16,6 @@ class ArticlesController < ApplicationController
         @article = current_user.articles.build
     end
 
-    def like
-    end
-
     def create
         # article_paramsの内容をarticleインスタンスに持たせる（持たせるだけなので↓でDBに保存する）
         @article = current_user.articles.build(article_params)
