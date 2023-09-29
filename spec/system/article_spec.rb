@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Article', type: :system do
   # chatgptのコード
-  before do
-    # Capybaraのドライバー設定を変更する
-    driven_by :selenium, using: :headless_chrome
-  end
+  # before do
+  #   # Capybaraのドライバー設定を変更する
+  #   driven_by :selenium, using: :headless_chrome
+  # end
 
   let!(:user) { create(:user) }
   let!(:articles) { create_list(:article, 3, user: user) }
