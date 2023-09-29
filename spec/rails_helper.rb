@@ -31,6 +31,13 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  # headlessのコードを共通として設定するときにはこれを追加する？
+  # chatgptはrails_helperに書けばいいって言っていたが、spec_helperでもよさそう
+  # config.before(:each, type: :system) do
+  #   driven_by :selenium, using: :headless_chrome
+  # end
+
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -64,4 +71,5 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::IntegrationHelpers, type: :request
+
 end
